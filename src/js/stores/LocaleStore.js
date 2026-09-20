@@ -48,9 +48,13 @@ var headerLocaleMap = {
   'hu': 'hu_HU',
 };
 
-var supportedLocalesList = Object.values(langLocaleMap)
-                                 .concat(Object.values(headerLocaleMap))
-                                 .filter(function (value, index, self) { return self.indexOf(value) === index;});
+var supportedLocalesList = Array.from(new Set(
+  Object.keys(langLocaleMap).map(function(lang) {
+    return langLocaleMap[lang];
+  }).concat(Object.keys(headerLocaleMap).map(function(header) {
+    return headerLocaleMap[header];
+  }))
+));
 
 function _getLocaleFromHeader(langString) {
   var languages = langString.split(',');
